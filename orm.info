@@ -1,0 +1,7 @@
+name = Object Relation Mapper API
+description = An implementation to develop object relation mapper
+package = Database
+core = 6.x
+version = 6.x-1.0
+
+

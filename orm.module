@@ -1,0 +1,92 @@
+<?php
+
+define('ORM_MODULE_PATH', drupal_get_path('module', 'orm'));
+define('ORM_LIBRARY_PATH', ORM_MODULE_PATH . "/includes/orm.inc");
+
+function orm_init(){
+    //global $user;
+    //drupal_set_message(var_export($user));
+    /*
+        # Load data access layer adapter
+     	$node = orm_data_adapter('micro_petowner', 'po', 'registry');
+
+    */
+
+    /*
+        # Get SQL Query
+        $result = $node->fields(array('nid', 'title'))->conditions(array('nid'=>1, 'title' => array('adopt%', 'LIKE')),30,0)->sort(array('`nid` ASC'))->joins(
+    	    'left', 
+    	    array(
+    	        'table' => array('node_revisions', 'nr'),
+    	        'map' => array('nid', 'nid'),
+    	        'fields' => array('body'),
+    	        ))->get_select_query();
+    */
+
+    /*
+        # Dynamic function
+        
+        $node->load_by_<nid>(1487);
+    */
+
+    /*
+	    # Select Query
+    	$result = $node->fields(array('nid', 'title'))->conditions(array('nid'=>1, 'title' => array('adopt%', 'LIKE')),30,0)->sort(array('`nid` ASC'))->joins(
+    	    'left', 
+    	    array(
+    	        'table' => array('node_revisions', 'nr'),
+    	        'map' => array('nid', 'nid'),
+    	        'fields' => array('body'),
+    	        ))->load();
+        */
+	/*
+	    # Insert Query
+    	$node->values(array
+    		(array(
+    			'page', 
+    			'My Title node a' ,
+    			1 ,
+    			1 ,
+    			time()
+    		), array(
+    			'page', 
+    			'My Title node b',
+    			1,
+    			1,
+    			time()
+    		))
+    	)->set(array(
+    		'type' , 
+    		'title' ,
+    		'uid' ,
+    		'status' ,
+    		'created'
+    	))->save();
+    */
+
+
+    /*
+	    # Update Query
+    	$node->changes(array('vid' => 1487))->conditions(array('nid' => 1487))->update();
+	*/
+	
+	/*
+	    # Remove Query
+	    $node->conditions(array('nid' => 1487, 'vid' => 1487))->remove();
+    */
+    
+}
+
+
+function orm_include_library(){
+	if(!defined(ORM_LOADED))
+		include_once(ORM_LIBRARY_PATH);
+}
+
+function orm_data_adapter($table=NULL, $alias=NULL, $db_con=NULL){
+	orm_include_library();
+
+	if(!is_null($table)){
+		return new Data($table, $alias, $db_con);
+	}
+}
