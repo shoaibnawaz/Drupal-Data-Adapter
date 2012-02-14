@@ -1,0 +1,61 @@
+This is a Data adapter layer for Drupal 6
+
+NOTE: The documentation is still incomplete and project is heavily under development.
+
+
+Load data access layer adapter
+        $table_adapter = orm_data_adapter('database_table', 'table_alias', 'database_connection_name');
+	
+
+Get SQL Query
+        $result = $node->fields(array('nid', 'title'))->conditions(array('nid'=>1, 'title' => array('adopt%', 'LIKE')),30,0)->sort(array('`nid` ASC'))->joins(
+            'left', 
+            array(
+                'table' => array('node_revisions', 'nr'),
+                'map' => array('nid', 'nid'),
+                'fields' => array('body'),
+                ))->get_select_query();
+
+Dynamic function
+        $node->load_by_<nid>(1487);
+
+Select Query
+        $result = $node->fields(array('nid', 'title'))->conditions(array('nid'=>1, 'title' => array('adopt%', 'LIKE')),30,0)->sort(array('`nid` ASC'))->joins(
+            'left', 
+            array(
+                'table' => array('node_revisions', 'nr'),
+                'map' => array('nid', 'nid'),
+                'fields' => array('body'),
+                ))->load();
+
+
+
+Insert Query
+        $node->values(array
+                (array(
+                        'page', 
+                        'My Title node a' ,
+                        1 ,
+                        1 ,
+                        time()
+                ), array(
+                        'page', 
+                        'My Title node b',
+                        1,
+                        1,
+                        time()
+                ))
+        )->set(array(
+                'type' , 
+                'title' ,
+                'uid' ,
+                'status' ,
+                'created'
+        ))->save();
+
+
+Update Query
+        $node->changes(array('vid' => 1487))->conditions(array('nid' => 1487))->update();
+
+Remove Query
+            $node->conditions(array('nid' => 1487, 'vid' => 1487))->remove();
